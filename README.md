@@ -26,7 +26,7 @@ artifacts.
   effort-per-commit constant (Kolassa et al. 2013, 1.666 h/commit), the whole-program targets embody
   a median of **~18 developer-weeks of original creation** each (gotree ~35, wren_cli ~71, ruff ~675).
   But MirrorCode's *own* human baseline shows reimplementation-from-a-working-reference costs
-  **~48 h (~1.2 weeks)** for a ~2,000-LoC task — ~9× cheaper than original creation. The marketing
+  **~48 h (~1.2 weeks)** for a ~2,000-LoC task — ~an order of magnitude cheaper than original creation. The marketing
   equivocates between the two: readers picture creation, the benchmark measures the cheaper
   reimplementation, and the "AI did it in 14 h" contrast rides on 17/25 targets showing memorization.
 
@@ -43,7 +43,7 @@ artifacts.
   memorization screen (17/25 flagged) but never reported the memorization×solve-rate association and
   ships no raw data to compute it — its "not solely memorization" defense is two anecdotes, an unfilled
   2×2. From the published figures: contamination breadth **68%**; the uncontaminated reconstruction
-  signal is bounded to **≤8 targets (~6 small tools)**; `brotlid`/`mailauth` recall-gated by
+  signal is bounded to **≤8 targets (~5 small tools)**; `brotlid`/`mailauth` recall-gated by
   construction. Reported as a bound, not a fabricated point estimate.
 
 ## Reproduce
@@ -56,9 +56,20 @@ Every number in `findings/01` re-derives from `data/human_labor.json`, which re-
 upstream repos' public git history via the GitHub API. The effort-per-commit constant is cited, not
 invented (see the script header).
 
+The upstream commit counts are live and drift slowly; the figures here are as of **2026-07-17** and
+re-derive (order-of-magnitude stable) on any rerun. Every claim traces to a cited paper section, a
+public repo file, or a re-runnable script — nothing rests on our say-so.
+
 ## What's here
 
 - `scripts/human_labor.py` — pulls each target's upstream commit history and converts to a
   developer-effort anchor at a published rate.
 - `data/human_labor.json` — the computed table (source of truth for finding 01).
 - `findings/` — the write-ups.
+
+## License
+
+Network-copyleft, dual: **content** (`findings/`, `data/`, `README.md`) under **CC BY-SA-NS**
+(CC BY-SA 4.0 + a Network Services clause); **code** (`scripts/`) under **AGPL-3.0-or-later**. See
+[`LICENSE`](LICENSE). The MirrorCode paper and repository under audit are their authors' own work,
+referenced by link and not redistributed here.

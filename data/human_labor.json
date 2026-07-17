@@ -5,7 +5,17 @@
   "work_week_hours": 40.0,
   "mirrorcode_human_reimpl_hours_2kLoC": 47.6,
   "mirrorcode_human_reimpl_source": "MirrorCode arXiv:2606.30182 footnote 7: 20 h -> 42% of tests on a ~2,000-LoC task",
-  "median_creation_weeks_whole_program_targets": 34.8
+  "median_creation_weeks_whole_only": 18.5,
+  "whole_only_targets": [
+   "pkl",
+   "gotree",
+   "mailauth",
+   "wren_cli",
+   "nonogrid",
+   "gron",
+   "hexyl",
+   "choose"
+  ]
  },
  "targets": [
   {
@@ -16,14 +26,14 @@
    "mirrorcode_human_estimate": "months",
    "coverage": "most",
    "scope_tested": "the linter (`ruff check`); formatter excluded",
-   "merged_prs": 15448,
-   "commits": 16216,
+   "merged_prs": 15449,
+   "commits": 16217,
    "contributors": 927,
    "first_commit": "2022-08-09",
    "last_activity": "2026-07-17",
    "span_years": 3.9,
-   "creation_dev_hours_kolassa": 27016,
-   "creation_dev_weeks_kolassa": 675.4,
+   "creation_dev_hours_kolassa": 27018,
+   "creation_dev_weeks_kolassa": 675.5,
    "note": "",
    "stars": 48648
   },

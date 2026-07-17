@@ -11,8 +11,8 @@ a hash, cipher, codec, or compressor whose specification is withheld and unfetch
 
 | target | recalled function | why it is recall-only |
 |---|---|---|
-| **brotlid** | Brotli decoder | Decoding a bundled `.br` stream to exact bytes requires the RFC-7932 decoder *and its 122 KB static dictionary*, which are not derivable from a few hundred decompression I/O examples and are not in the bundled docs. |
-| **mailauth** | DKIM/DMARC/SPF verify | Matching the reference requires RSA/Ed25519 verification, SHA-256, and RFC-6376 canonicalization — all offline spec knowledge. It is the target Opus 4.7 scored *worst* on. |
+| **brotlid** | Brotli decoder | Decoding a bundled `.br` stream to exact bytes requires the RFC-7932 decoder *and its ~120 KB static dictionary*, which are not derivable from the 113 visible decompression I/O examples (nor the 82 hidden, which the solver never sees) and are not in the bundled docs. |
+| **mailauth** | DKIM/DMARC/SPF verify | Matching the reference requires RSA/Ed25519 verification, SHA-256, and RFC-6376 canonicalization — all offline spec knowledge. It is among the hardest targets: best trajectories just below 99% on hidden tests, never solved to 100% (§3.1). |
 
 MirrorCode engages this directly (Appendix E.1.1) and defends `brotlid` on the grounds that
 decompression is *"fully determined by the documented format."* That conflates two things the

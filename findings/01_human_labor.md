@@ -35,8 +35,10 @@ total effort, and charges a full interval to rapid-fire commits, so it over-coun
 
 **Anchor B — reimplementation.** MirrorCode's task is not to *create* a program but to *reimplement*
 one from a working reference. Its own paper gives a human baseline (footnote 7): a skilled SWE **did
-not finish a ~2,000-LoC task in 20 hours, passing 42% of tests** → ~20/0.42 ≈ **48 h (~1.2 weeks)** to
-100%. This is the correctly-scoped human number for what MirrorCode actually measures.
+not finish a ~2,000-LoC task in 20 hours, passing 42% of tests.** So reimplementation of a ~2k-LoC task
+costs **at least 20 h**; a linear extrapolation puts full completion near ~48 h (and, since the tests
+left are usually the harder ones, ~48 h reads as a floor, not a ceiling). Either way it is **days, not
+tens of weeks** — the correctly-scoped human number for what MirrorCode actually measures.
 
 ## Anchor A: original creation embodied in the targets
 
@@ -55,8 +57,10 @@ Whole-program targets, where the upstream repo's history is a fair anchor for th
 | brotlid | google/brotli | 1,538 | 12.8y | 131 | ~64.0 dev-weeks (decoder is a *part* of this) |
 | ruff | astral-sh/ruff | 16,216 | 3.9y | 927 | ~675 dev-weeks (linter is *most* of this) |
 
-**Median whole-program target ≈ 18.5 developer-weeks of original creation**, spread over years of
-calendar time and many contributors. These are not weekend programs.
+**Median of the eight pure-`whole` targets ≈ 18.5 developer-weeks of original creation** (the bottom
+two rows, `brotlid` and `ruff`, are excluded from that median — MirrorCode tests only part of `brotli`
+and most of `ruff`). Spread over years of calendar time and many contributors, these are not weekend
+programs.
 
 Scoped targets, where MirrorCode tests a small slice of a much larger repo — the whole-repo count
 **over-states** the labor and is shown only to mark the trap:
@@ -72,12 +76,13 @@ Scoped targets, where MirrorCode tests a small slice of a much larger repo — t
 For these, the upstream number is meaningless as a per-task anchor; the honest figure needs
 per-directory history, which we do not claim here.
 
-## The finding: the two anchors bracket the belief, and differ by ~9×
+## The finding: the two anchors bracket the belief, and differ by ~an order of magnitude
 
-For a ~2,000-LoC *whole* program (bitwise: 264 commits ≈ **440 h** of original creation by Anchor A),
-MirrorCode's *own* reimplementation baseline is **~48 h** (Anchor B). So **reimplementing from a
-working reference is roughly 9× cheaper than original creation** for a program of that size. That gap
-is the whole story:
+Take a ~2,000-LoC *whole* program: `gron` (2.3k LoC, 223 commits ≈ **372 h** of original creation by
+Anchor A) or `hexyl` (1.8k LoC, 490 commits ≈ **816 h**). MirrorCode's *own* reimplementation baseline
+for a task that size is **~48 h** — days (Anchor B). So **reimplementing from a working reference is
+roughly an order of magnitude cheaper than original creation** (the exact ratio, ~8–17× here, depends
+on the program; it is illustrative, not a constant). That gap is the whole story:
 
 - **Readers of the marketing picture creation** — "a human would take weeks/months" evokes building
   the program. Anchor A confirms these programs *did* take tens of developer-weeks to create.

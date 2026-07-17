@@ -153,9 +153,16 @@ def main():
         flag = "  [OVER-COUNT: scoped slice]" if coverage == "scoped" else ""
         print(f"{name:12} {repo:26} commits={commits} span={span_years}y  "
               f"creation~{dev_h}h (~{dev_wk}wk) [{coverage}]{flag}", flush=True)
-    whole = [r for r in rows if r.get("coverage") in ("whole", "most", "partial") and r.get("creation_dev_weeks_kolassa")]
+    # median over the CLEAN anchors only (coverage=='whole'): exclude 'most'/'partial'
+    # (ruff, brotlid) and 'scoped' (whole-repo over-counts the tested slice).
+    whole = [r for r in rows if r.get("coverage") == "whole" and r.get("creation_dev_weeks_kolassa")]
     wk = sorted(r["creation_dev_weeks_kolassa"] for r in whole)
-    median_wk = wk[len(wk)//2] if wk else None
+    def _median(xs):
+        n = len(xs)
+        if n == 0:
+            return None
+        return xs[n//2] if n % 2 else round((xs[n//2 - 1] + xs[n//2]) / 2, 1)
+    median_wk = _median(wk)
     out = {
         "meta": {
             "effort_per_commit_hours": H_PER_COMMIT,
@@ -163,7 +170,8 @@ def main():
             "work_week_hours": WORK_WEEK_H,
             "mirrorcode_human_reimpl_hours_2kLoC": MIRRORCODE_HUMAN_REIMPL_H,
             "mirrorcode_human_reimpl_source": "MirrorCode arXiv:2606.30182 footnote 7: 20 h -> 42% of tests on a ~2,000-LoC task",
-            "median_creation_weeks_whole_program_targets": median_wk,
+            "median_creation_weeks_whole_only": median_wk,
+            "whole_only_targets": [r["target"] for r in whole],
         },
         "targets": rows,
     }

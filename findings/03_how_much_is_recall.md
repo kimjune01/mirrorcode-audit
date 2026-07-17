@@ -18,9 +18,9 @@ memorization" is **two anecdotes** — it solved non-memorized `nonogrid` and `t
 memorized `sed` and `ruff` (§4.3). That is four hand-picked cells of a 2×2 it never filled in.
 
 And it cannot be filled in from public artifacts: the repo ships the harness, tasks, and gold outputs
-but **neither the memorization scores nor the per-run solve results** (confirmed: no screen/results
-data in 9,021 repo files). So MirrorCode's own contamination check is not reproducible — the reader
-must take "not solely memorization" on faith.
+but **no memorization-screen scores and no per-run solve results** — inspecting all 9,021 repo files,
+the only `results` path is a single `tssql` test fixture, not run outputs. So MirrorCode's own
+contamination check is not reproducible — the reader must take "not solely memorization" on faith.
 
 ## What we can bound from the published figures
 
@@ -28,24 +28,24 @@ Reading Figure 9 as a binary (Opus-4.7 bar above vs. within/below the baseline b
 where exact heights are not), the **8 non-memorized** MirrorCode targets are approximately:
 
 `tssql`, `hexyl`, `private_S`, `bitwise`, `texmacros`, `nonogrid`, `giac_subset`, and one borderline
-(`choose`/`gron`). The other 17 are memorized.
-
-Crossing with solvability (§3.1, §4.3, Figure 2):
+(`choose`). The other 17 are memorized. (Solve status below is read from §3.1/§4.3 text where stated
+and Figure 2 otherwise; per-cell reads from Figure 2 are approximate, so target *placements* are
+illustrative — the aggregate bound does not depend on any single cell.)
 
 | bucket | targets | reading |
 |---|---|---|
 | **Recall-gated by construction** | `brotlid`, `mailauth` | pass ⇒ recall regardless of the screen (offline RFC specs; [finding 02](02_recall_and_verifiability.md)) |
-| **Non-memorized AND solved** — the clean signal | `nonogrid`, `tssql`, `hexyl`, `bitwise`, `texmacros`, `private_S` | genuine reconstruction-from-behavior evidence — but all small/medium, simple-logic tools (a nonogram solver, CSV-SQL, a hex viewer, a bitwise calculator, TeX macro expansion) |
-| **Non-memorized AND unsolved** | `giac_subset` | the one hard non-memorized target was not solved |
-| **Memorized AND solved** — recall not excludable | `uuidparse`, `qsv_select`, `jq_simple`, `numfmt`, `gron`, `cal`, `gotree`, `wren_cl`, `pkl`, `private_M`, … | the bulk of the headline 56%; MirrorCode's own method cannot tell reconstruction from recall here |
-| **Memorized AND unsolved** | `sed`, `ruff`, `cprepro`, `private_L` | memorization is necessary-not-sufficient — the authors' valid partial point |
+| **Non-memorized AND solved** — the clean signal | `nonogrid`, `tssql` (both named in §4.3 as solved-though-not-memorized), `hexyl`, `bitwise` (small non-memorized S-bucket tools; `private_S`, `texmacros` probably) | genuine reconstruction-from-behavior evidence — but all small/medium, simple-logic tools (a nonogram solver, CSV-SQL, a hex viewer, a bitwise calculator) |
+| **Non-memorized AND unsolved** | `giac_subset` | the hardest non-memorized target was not solved |
+| **Memorized AND solved-or-near** — recall not excludable | `uuidparse`, `qsv_select`, `jq_simple`, `numfmt`, `gron`, `cal`, `wren_cl`, `gotree` (near-perfect, 2000/2001), `private_M`, … | the bulk of the headline; MirrorCode's own method cannot tell reconstruction from recall here |
+| **Memorized AND unsolved** | `sed`, `ruff`, `cprepro`, `pkl`/`private_L` | memorization is necessary-not-sufficient — the authors' valid partial point |
 
 ## The bound
 
 - **Contamination breadth: 68%.** 17 of 25 targets are memorized on MirrorCode's own screen. Whatever
   the headline measures, two-thirds of its targets are ones the model has partly seen.
-- **Clean signal ≤ 32%, and in practice ~6 small tools.** The uncontaminated measurement of
-  "reconstruction from behavior alone" is confined to the ≤8 non-memorized targets, of which ~6 were
+- **Clean signal ≤ 32%, and in practice a handful of small tools.** The uncontaminated measurement of
+  "reconstruction from behavior alone" is confined to the ≤8 non-memorized targets, of which ~5 were
   solved — all small-to-medium, simple-algorithm programs. That is real and creditable evidence, and
   it is a much narrower claim than "AI can rebuild entire programs from behavior alone."
 - **The memorized-and-solved targets drive the number and are indistinguishable from recall** under
