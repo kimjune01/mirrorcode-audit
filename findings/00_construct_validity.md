@@ -22,7 +22,7 @@ construct. Each is evidenced elsewhere in this repo or in MirrorCode's own paper
 | # | The metric actually rewards… | …not the claimed construct, because | evidence |
 |---|---|---|---|
 | 1 | **Reimplementation from a working oracle** | readers of "largest project a human would take months on" picture *creation*; reimplementing from a live reference is ~9× cheaper than creating (MirrorCode's own human baseline: ~48 h for a ~2k-LoC task vs ~440 h of original creation for a program that size) | [finding 01](01_human_labor.md) |
-| 2 | **Recall of specific, famous public programs** | "from behavior alone" is confounded: MirrorCode's own memorization screen flags **17 of 25 targets** (p<0.05), and `brotlid`/`mailauth` are recall-gated (their values need offline RFC specs, not behavior) | [finding 02](02_recall_and_verifiability.md), §B.3 |
+| 2 | **Recall of specific, famous public programs** | "from behavior alone" is confounded: MirrorCode's own memorization screen flags **17 of 25 targets** (p<0.05); the uncontaminated signal is bounded to ≤8 targets, ~6 small tools; `brotlid`/`mailauth` are recall-gated | [finding 03](03_how_much_is_recall.md), [02](02_recall_and_verifiability.md) |
 | 3 | **Passing byte-exact I/O tests** | "rebuild entire programs" overstates it — the paper concedes the produced code is piecemeal, monolithic, and *"would not be merged into existing repositories"* (§4.3) | MirrorCode §3.5, §4.3 |
 | 4 | **Reproducing a scoped slice** | several "programs" are a small part of a large repo (`cal`/`uuidparse` inside util-linux; `bib2json` = one format pair of pandoc; `qsv select`; a jq subset), so "entire program" is literally not the unit tested | [finding 01](01_human_labor.md) table; §2.3 |
 
@@ -64,7 +64,7 @@ MirrorCode, so the coverage is comprehensive rather than only the two deep-dives
 | **frame** | does the grader guard what the task never named? | **strong** — I/O-only oracle + enforced execute-only reference; the Gemini binary-wrap cheat is defeated structurally (§D) |
 | **gold** | does the reference pass its own tests? | trivially yes — the reference *is* the oracle (self-capturing by construction); apt for an I/O bench, but see oracle |
 | **score** | recompute the headline; is it comparing like with like? | **caveat** — Gemini run Python-only vs Opus all-6-languages; L targets single-language; disclosed in text, flattened in the 3-bar figure |
-| **decay** | what survives publication? | **weak** — targets are famous public programs, 17/25 memorized; canary strings help detect, not prevent; claim not scoped to an adversary |
+| **decay** | what survives publication? | **weak** — targets are famous public programs, 17/25 memorized; the recall-free signal is bounded to ~6 small tools ([finding 03](03_how_much_is_recall.md)); canary strings help detect, not prevent |
 | **construct** | does it measure what it says? | **no, as titled** — see verdict above |
 
 ## Reproduce / re-derive

@@ -39,6 +39,13 @@ artifacts.
   container images all public), but the **scores** ship no per-run receipts and the **human-time
   claims** are unmeasured belief.
 
+- **[03 — How much of the score is recall?](findings/03_how_much_is_recall.md)** MirrorCode ran a
+  memorization screen (17/25 flagged) but never reported the memorization×solve-rate association and
+  ships no raw data to compute it — its "not solely memorization" defense is two anecdotes, an unfilled
+  2×2. From the published figures: contamination breadth **68%**; the uncontaminated reconstruction
+  signal is bounded to **≤8 targets (~6 small tools)**; `brotlid`/`mailauth` recall-gated by
+  construction. Reported as a bound, not a fabricated point estimate.
+
 ## Reproduce
 
 ```bash
