@@ -63,8 +63,10 @@ Precision matters here, so state each claim at exactly its strength:
 We deliberately do **not** publish a single "X% of the score is recall" figure, and we do **not** claim
 a bound: the raw per-target solve data is not released, so either would be fabricated. The
 receipt-backed finding is the meta-finding — MirrorCode ran exactly the measurement that would settle
-the question (the screen), has the solve rates, and never reported the association or released the data
-to compute it.
+the question (the screen), has the per-target solve rates (they are Figure 2), and never reported the
+association or released the join. Both halves already exist as data; publishing them as one CSV would
+have cost essentially nothing next to the thousands-of-dollars-per-task compute already spent. The
+contamination question is left open by a choice, not a budget.
 
 ## What would settle it (and MirrorCode could)
 

@@ -63,7 +63,11 @@ claim is fair.
   behind the leaderboard 56% and the anecdotes (*"14 h, $251"* for the near-perfect gotree run;
   *"$2,600, 19 days"*) are **not** published. So a reader cannot recompute the aggregate score without
   re-spending $100–3,000 per task on a fresh stochastic run — a real reproducibility gap, though not a
-  total absence of artifacts.
+  total absence of artifacts. And this one is not a resource question: the per-task, per-model outcome
+  grid *already exists* — it is Figure 2 — so publishing it as a CSV, the receipts behind every headline
+  number, would have cost essentially nothing against the thousands-of-dollars-per-task compute already
+  spent. Withholding it is a choice, not a budget limit. That same CSV, joined to the memorization
+  scores, is exactly what would let anyone test the recall confound ([finding 03](03_how_much_is_recall.md)).
 - **Human-time claims are unmeasured** (finding 01): every human-effort figure is *"we believe,"* the
   estimators were benchmark contributors (not blinded), no estimation method is published, the four
   gotree estimates span ~7×, and the one real baseline (20 h → 42%, incomplete) is in a footnote, off

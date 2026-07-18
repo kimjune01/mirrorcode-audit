@@ -51,18 +51,23 @@ tens of weeks** — the correctly-scoped human number for what MirrorCode actual
 Whole-program targets, where the upstream repo's history is a fair anchor for the task (counts as of
 2026-07-17, live and re-derivable via `scripts/human_labor.py`; they drift slowly):
 
-| target | upstream repo | commits | span | contributors | creation (Kolassa) |
-|---|---|---|---|---|---|
-| choose | theryangeary/choose | 164 | 6.8y | 7 | ~6.8 dev-weeks |
-| mailauth | stalwartlabs/mail-auth | 193 | 3.7y | 13 | ~8.1 dev-weeks |
-| gron | tomnomnom/gron | 223 | 12.7y | 23 | ~9.3 dev-weeks |
-| nonogrid | tsionyx/nonogrid | 400 | 2.8y | 2 | ~16.6 dev-weeks |
-| hexyl | sharkdp/hexyl | 490 | 7.4y | 61 | ~20.4 dev-weeks |
-| gotree | evolbioinfo/gotree | 836 | 10.0y | 7 | ~34.8 dev-weeks |
-| pkl | apple/pkl | 851 | 2.4y | 80 | ~35.5 dev-weeks |
-| wren_cli | wren-lang/wren-cli | 1,703 | 10.4y | 94 | ~70.9 dev-weeks |
-| brotlid | google/brotli | 1,538 | 12.8y | 131 | ~64.0 dev-weeks (decoder is a *part* of this) |
-| ruff | astral-sh/ruff | 16,217 | 3.9y | 927 | ~675 dev-weeks (linter is *most* of this) |
+The conversion is explicit in the last two columns: **commits × 1.666 h = dev-hours**, then **÷ 40 h =
+dev-weeks**. The first three columns are the hard record; the last two are the heuristic.
+
+| target | upstream repo | commits | span | contributors | × 1.666 h = dev-hours | ÷ 40 = dev-weeks |
+|---|---|---|---|---|---|---|
+| choose | theryangeary/choose | 164 | 6.8y | 7 | 273 h | ~6.8 |
+| mailauth | stalwartlabs/mail-auth | 193 | 3.7y | 13 | 322 h | ~8.1 |
+| gron | tomnomnom/gron | 223 | 12.7y | 23 | 372 h | ~9.3 |
+| nonogrid | tsionyx/nonogrid | 400 | 2.8y | 2 | 666 h | ~16.6 |
+| hexyl | sharkdp/hexyl | 490 | 7.4y | 61 | 816 h | ~20.4 |
+| gotree | evolbioinfo/gotree | 836 | 10.0y | 7 | 1,393 h | ~34.8 |
+| pkl | apple/pkl | 851 | 2.4y | 80 | 1,418 h | ~35.5 |
+| wren_cli | wren-lang/wren-cli | 1,703 | 10.4y | 94 | 2,837 h | ~70.9 |
+| brotlid* | google/brotli | 1,538 | 12.8y | 131 | 2,562 h | ~64.0 |
+| ruff* | astral-sh/ruff | 16,217 | 3.9y | 927 | 27,018 h | ~675 |
+
+<sub>*`brotlid` (decoder only) and `ruff` (linter only) test part of the repo, so their whole-repo row over-states the tested slice; both are excluded from the median below.</sub>
 
 **Median of the eight pure-`whole` targets ≈ 18.5 developer-weeks of original creation** (the bottom
 two rows, `brotlid` and `ruff`, are excluded from that median — MirrorCode tests only part of `brotli`
@@ -83,26 +88,30 @@ Scoped targets, where MirrorCode tests a small slice of a much larger repo — t
 For these, the upstream number is meaningless as a per-task anchor; the honest figure needs
 per-directory history, which we do not claim here.
 
-## The finding: the two anchors bracket the belief, and differ by ~an order of magnitude
+## The finding: four different "how long?" numbers, slid together
 
-Take a ~2,000-LoC *whole* program (LoC from MirrorCode Table 3): `gron` (2.3k LoC, 223 commits ≈ **372 h** of original creation by
-Anchor A) or `hexyl` (1.8k LoC, 490 commits ≈ **816 h**). MirrorCode's *own* reimplementation baseline
-for a task that size is **~48 h** — days (Anchor B). So **reimplementing from a working reference is
-roughly an order of magnitude cheaper than original creation** (the exact ratio, ~8–17× here, depends
-on the program; it is illustrative, not a constant). That gap is the whole story:
+At least four "how long would a human take" numbers attach to essentially one task. They measure
+different things, and MirrorCode's framing slides between them. Worked for **gotree** — the one target
+with both a stated human estimate and a reported AI run:
 
-- **Readers of the marketing picture creation** — "a human would take weeks/months" evokes building
-  the program. The public record — years of calendar time, hundreds to thousands of commits, 7 to 927
-  contributors — shows these are multi-year programs, not weekend builds.
-- **The benchmark measures reimplementation** — the far cheaper task. Anchor B (MirrorCode's own data)
-  puts a ~2k-LoC reimplementation at ~1.2 weeks, not weeks-to-months.
-- **MirrorCode's estimates ("2–17 weeks", "months") sit between the two anchors and are untested
-  belief.** The falsifiable numbers are Anchor A (creation, from public history) and Anchor B
-  (reimplementation, from MirrorCode's own baseline). Neither supports the headline as framed: the
-  large number is the wrong task, and the right-task number is a week.
-- **The "AI in 14 h" contrast is further confounded**: MirrorCode's own memorization screen is
-  **screen-positive on 17 of 25 targets** (see finding 02), so the AI is partly
-  recalling these specific, famous programs rather than reconstructing them.
+| "how long?" | value | what it actually measures | source |
+|---|---|---|---|
+| **Original creation** | ~1,393 dev-hours (~35 dev-weeks) | building gotree from scratch, over 10 years and 836 commits | Anchor A: git history × 1.666 h (heuristic) |
+| **MirrorCode's belief** | *"2–17 weeks"* | four contributors' guess at reimplementation effort (~7× spread) | MirrorCode paper/site (untested) |
+| **Measured reimplementation** | ≥ 20 h; ~48 h to 100% (for a ~2k-LoC task; gotree is 16k) | a real SWE reimplementing from the reference binary | MirrorCode footnote 7 (20 h → 42%) |
+| **AI (Opus 4.7)** | 14 h, $251, passed 2000/2001 tests | the benchmark run | MirrorCode site |
+
+The takeaway, read straight off the table:
+
+- **Creation and reimplementation differ by ~an order of magnitude.** For a ~2k-LoC whole program,
+  creation is ~370–820 h (`gron` ~372, `hexyl` ~816) while MirrorCode's own reimplementation baseline
+  is ~48 h. Reimplementing from a working reference is the far cheaper task.
+- **The marketing evokes the top row; the benchmark measures the third.** "A human would take
+  weeks/months" reads as *creation*; the task posed is *reimplementation from an oracle*. The belief
+  row sits between the two falsifiable numbers, untested.
+- **The AI row looks miraculous only against the wrong comparison** — 14 h vs ~35 creation-weeks, not
+  14 h vs a ~48 h reimplementation — and it is confounded: MirrorCode's own screen is **screen-positive
+  on 17 of 25 targets** (finding 02), and gotree's run *passed 2000/2001*, not a strict 100%.
 
 ## What this does and does not show
 

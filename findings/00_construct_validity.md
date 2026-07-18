@@ -50,8 +50,10 @@ answered ("can it reproduce scoped I/O from an oracle, partly from memory?").
 **Credit where due.** Unlike a saturated benchmark, MirrorCode has genuine range: 8 of 25 targets were
 never solved to 100% and the Large targets sit near 0%, so the instrument still discriminates at the
 frontier rather than topping out. The scoring isolation is real, the execute-only reference is
-enforced, and the COI is disclosed. The critique is of the *claim placed on the number*, not of the
-engineering under it.
+enforced, and the COI is disclosed. The full list of what it gets right — cheat-proofing, I/O-only
+grading, the human baseline and memorization screen most benchmarks skip, independent convergence on
+the ProgramBench-audit fixes — is [finding 04](04_what_it_gets_right.md). The critique is of the
+*claim placed on the number*, not of the engineering under it.
 
 ## The contract, clause by clause
 

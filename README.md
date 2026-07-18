@@ -38,16 +38,23 @@ artifacts.
   (DKIM/DMARC crypto verification). MirrorCode's defense — decompression is *"fully determined by the
   documented format"* — conflates RFC 7932 with the *bundled* docs. Its own memorization screen flags
   17/25 targets. Separately: the **instrument** is genuinely verifiable (harness, tests, gold outputs,
-  container images all public), but the **scores** ship no per-run receipts and the **human-time
-  claims** are unmeasured belief.
+  container images all public), but the **scores** ship no per-run receipts — the per-task/per-model outcome grid is Figure 2, so
+  publishing it as a CSV would have cost almost nothing, yet they didn't — and the **human-time claims**
+  are unmeasured belief.
 
 - **[03 — How much of the score is recall?](findings/03_how_much_is_recall.md)** MirrorCode ran a
-  memorization screen (17/25 flagged) but never reported the memorization×solve-rate association and
-  ships no raw data to compute it — its "not solely memorization" defense is two anecdotes, an unfilled
-  2×2. From the published figures: contamination breadth **68%**; the uncontaminated reconstruction
-  screen flags 17/25 targets, but only two (`brotlid`, `mailauth`) are recall-gated *by construction*;
-  the recall contribution to the score cannot be estimated from released data (the join isn't published).
-  Reported as what the evidence supports, not a fabricated point estimate.
+  memorization screen (**17/25 screen-positive**) but never reported the memorization×solve-rate
+  association and ships no raw data to compute it — its "not solely memorization" defense is two
+  anecdotes, an unfilled 2×2. Only two targets (`brotlid`, `mailauth`) are recall *by construction*; the
+  recall contribution to the 56% cannot be estimated from released data. Reported as what the evidence
+  supports, not a fabricated point estimate — and note both halves of the join already exist as data, so
+  publishing it would have cost almost nothing.
+
+- **[04 — What MirrorCode gets right](findings/04_what_it_gets_right.md).** An audit is more than a
+  dunk. Enforced execute-only reference (seccomp + Landlock, not just asserted); I/O-only grading that
+  sidesteps the frame problem; a human baseline and a memorization screen most benchmarks skip;
+  independent convergence on the ProgramBench-audit fixes; enough budget to measure the real frontier;
+  genuine headroom; and a paper body candid about its own limits. Credited as squarely as the criticism.
 
 ## Reproduce
 
