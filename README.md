@@ -11,6 +11,13 @@ is the same construct — reconstruct-a-program-from-behavior, graded by byte-ex
 built more carefully. This audit checks the claims that carry the marketing, using only public
 artifacts.
 
+## Disclosure
+
+The author applied for a role at Epoch AI, which co-produced MirrorCode. This is an interest
+disclosure, not a funding one: no money or sponsored time was involved. The audit uses only public
+artifacts and is re-runnable; every claim traces to a cited receipt (a paper section, a public repo
+file, or a script here), so it stands or falls independent of the author.
+
 ## Findings
 
 - **[00 — Does MirrorCode measure what it says it measures?](findings/00_construct_validity.md)** The
