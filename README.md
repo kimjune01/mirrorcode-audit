@@ -56,13 +56,14 @@ artifacts.
   independent convergence on the ProgramBench-audit fixes; enough budget to measure the real frontier;
   genuine headroom; and a paper body candid about its own limits. Credited as squarely as the criticism.
 
-- **[05 — A metric worth reporting: size × speed × accuracy](findings/05_recommendation.md).** The
-  constructive fix. The marketing question is three numbers — **how large a program (LoC), how many ×
-  faster than a human (10× / 100× / 1000×), and at what accuracy** — with speed and accuracy reported
-  *as a function of size*, not collapsed (the title is a size claim). Wall-clock, not dollars (compute
-  is negligible against a SWE's time). Small-sample-estimable (Wilson CI for accuracy), degrading to a
-  single asterisked n=1 point on a tight budget and upgrading to a fitted accuracy(size) curve with more
-  samples. We'd have computed it from their run records; they didn't publish them, so we ask them to run it.
+- **[05 — A metric worth reporting: the size × time × success profile](findings/05_recommendation.md).**
+  The constructive fix, stated at its true strength (codex-reviewed). The marketing question has three
+  dimensions — **size** (a gameable covariate, so pair LoC with tested surface), **time-to-success**
+  (censoring failures, a compression factor only at a predeclared success probability — not a naive,
+  survivor-biased ratio), and **whole-task success** (binomial over runs/tasks; a Wilson interval
+  there, *not* on the correlated per-test fraction). Report a preregistered success-vs-time-vs-size
+  **profile**, with cost/tokens/parallelism logged too — not a three-number slogan. We'd have estimated
+  it from their run records; they didn't publish them, so we ask them to run it.
 
 ## Reproduce
 
