@@ -56,6 +56,12 @@ artifacts.
   independent convergence on the ProgramBench-audit fixes; enough budget to measure the real frontier;
   genuine headroom; and a paper body candid about its own limits. Credited as squarely as the criticism.
 
+- **[05 — A metric worth reporting: speed × accuracy](findings/05_recommendation.md).** The
+  constructive fix. The marketing question is two numbers — **how many × faster than a human (10× /
+  100× / 1000×), and at what accuracy** — reported as a pair, each with a small-sample CI (Wilson for
+  the accuracy proportion), or a single asterisked point estimate on a tight budget. We would have
+  computed it from their run records; they didn't publish them, so we ask them to run it.
+
 ## Reproduce
 
 ```bash

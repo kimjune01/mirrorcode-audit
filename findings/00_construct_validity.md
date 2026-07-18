@@ -22,7 +22,7 @@ construct. Each is evidenced elsewhere in this repo or in MirrorCode's own paper
 | # | The metric actually rewards… | …not the claimed construct, because | evidence |
 |---|---|---|---|
 | 1 | **Reimplementation from a working oracle** | readers of "largest project a human would take months on" picture *creation*; reimplementing from a live reference is ~an order of magnitude cheaper (MirrorCode's own human baseline: ~48 h for a ~2k-LoC task vs ~370–820 h of original creation for a whole program that size) | [finding 01](01_human_labor.md) |
-| 2 | **Recall of specific, famous public programs** | "from behavior alone" is confounded: MirrorCode's own memorization screen flags **17 of 25 targets** (p<0.05); 17/25 are screen-positive; only `brotlid`/`mailauth` are recall by construction; the recall share is unquantifiable from released data | [finding 03](03_how_much_is_recall.md), [02](02_recall_and_verifiability.md) |
+| 2 | **Recall of specific, famous public programs** | "from behavior alone" is confounded: MirrorCode's own memorization screen is **screen-positive on 17 of 25 targets** (p<0.05); only `brotlid`/`mailauth` are recall by construction, and the recall share of the score is unquantifiable from released data | [finding 03](03_how_much_is_recall.md), [02](02_recall_and_verifiability.md) |
 | 3 | **Functional compatibility, not production software** | "rebuild entire programs" reads as engineering a maintainable program; the metric checks I/O behavior only, and the paper concedes the code is piecemeal, monolithic, and *"would not be merged into existing repositories"* (§4.3) — a limit on external validity, not on the functional construct | MirrorCode §3.5, §4.3 |
 | 4 | **Heterogeneous units under one word** | "entire program" spans standalone tools, subcommands, and subsets (`cal`/`uuidparse` inside util-linux; `bib2json` = one format pair of pandoc; `qsv select`; a jq subset); each task's scope is legitimate, but the aggregate "entire programs" phrase flattens very different tested surfaces | [finding 01](01_human_labor.md) table; §2.3 |
 
@@ -77,3 +77,6 @@ MirrorCode, so the coverage is comprehensive rather than only the two deep-dives
   [`epoch-research/MirrorCode`](https://github.com/epoch-research/MirrorCode) and classify by the
   five-class rule.
 - Every claim traces to a cited paper section, a public repo file, or a re-runnable script.
+
+**The constructive fix** — the metric that would answer the marketing question honestly (wall-clock
+compression × accuracy, small-sample-estimable) — is [finding 05](05_recommendation.md).
