@@ -59,6 +59,31 @@ T = [
  ("private_L","L","?","?","(private)","unread",None,None,None,True,"private target; excluded from Fig 9 screen"),
 ]
 
+# Every rejection category from the prior audits (ProgramBench class_checks +
+# witness classes, SWE-bench Pro determinacy, How-to-Audit contract), swept
+# against MirrorCode so the read is demonstrably complete. One-sided: "no witness
+# surfaced" / "neutralized", never a certificate of absence.
+# (category, source_audit, verdict, basis)
+CHECKS = [
+ ("recall (hash/cipher/codec/compressor)","ProgramBench","PRESENT — 2 (brotlid, mailauth)","graded output is a codec's / cryptographic signature's exact value; receipts above"),
+ ("implementation-pinned render (PNG/PDF/framemd5 bytes)","ProgramBench","no witness surfaced","no image/PDF/media/terminal-image target in the public set; the `*Renderer*.pkl` fixtures are pkl's text renderers, and such reverse-engineering targets were excluded by selection (§2.3)"),
+ ("undiscoverable entry point","ProgramBench","no witness surfaced (public set)","visible tests reveal task scope; the one candidate (gron `argv[0]`→ungron) MirrorCode itself dropped (E.1.2)"),
+ ("self-capturing golden","ProgramBench","WHOLE-BENCHMARK, by construction","every `data/gold_outputs/*` record is the reference binary's own I/O, with no independent contract check — the ProgramBench 'answer key written from the reference' pattern is structural here. Mitigated by I/O-only grading + the non-determinism screen (finding 00 gold clause), not eliminated"),
+ ("scale / coverage","ProgramBench","PRESENT — 7 (the scale class)","the hard/unsolved targets; size and intricacy, not recall"),
+ ("spec underdetermination (Airtight / Misdetermined / Plural)","SWE-bench Pro","3 Plural (hexyl, sed, bib2json)","the paper's own §3.3 failure cases; no Misdetermined or Airtight witness surfaced"),
+ ("non-determinism: time / random / uuid","ProgramBench","neutralized","screened and gold regenerated at runtime (Table 1); `uuidparse` parses, it does not generate"),
+ ("float-formatting","ProgramBench","neutralized by selection","exact-float-arithmetic targets were rejected (§2.3); `numfmt` is fixed-decimal SI, `giac` is exact symbolic (`1/6`, `ln(3)`) — spot-checked"),
+ ("locale / collation","ProgramBench","neutralized","fixed sandbox locale; `numfmt`'s eight locales reproduce identically for solver and reference"),
+ ("dir / hashmap enumeration order","ProgramBench","no witness surfaced","output orders are defined — `gron` sorts keys, `jq` preserves input order (spot-checked golds)"),
+ ("env / host / path leakage","ProgramBench","neutralized","shared sandbox reproduces any $HOME/host-derived output identically"),
+ ("parser-error-text (exact diagnostics)","ProgramBench","benchable","exact error wording is discoverable from the visible tests and by probing the reference"),
+ ("concurrency / interleaving","ProgramBench","N/A","single-shot CLI tasks; no interleaving graded"),
+ ("archive bit-exact (tar/zip layout)","ProgramBench","no witness surfaced","no archive-producing target; ruff's `*.tar.gz` are lint INPUTS, not graded output"),
+ ("frame (destructive completion scores 1)","Terminal-Bench","avoided by design","the oracle is I/O only, not final environment state (finding 00 frame clause; finding 04)"),
+ ("gold fails its own test","DeepSWE / SWE-bench Pro","cannot arise","the reference binary IS the oracle, so goldens pass by construction — which is also the self-capturing-golden concern above"),
+ ("decay / contamination","tau-bench","PRESENT — 17 screen-positive","finding 03"),
+]
+
 RECALL_WITNESS = {
  "brotlid": "`brotli --base64 10x10y.compressed` (bundled Brotli blob) -> exact decompressed bytes; "
             "real-world .br fixtures (mc/brotlid/test_data/) need the RFC-7932 decoder + static dictionary. "
@@ -77,7 +102,8 @@ def main():
             "spec_flag": spec, "lang_forced": lf,
             "witness": RECALL_WITNESS.get(t), "note": note,
         })
-    json.dump({"targets": rows, "provenance": {
+    checks = [{"category": c, "source_audit": s, "verdict": v, "basis": b} for (c,s,v,b) in CHECKS]
+    json.dump({"targets": rows, "classes_checked": checks, "provenance": {
         "table3": "paper arXiv:2606.30182 Table 3 (bucket/lang/loc/command)",
         "recall": "read of data/gold_outputs/<t>.jsonl + mc/<t>/ fixtures; hand-adjudicated",
         "screen_positive": "Fig 9 baseline-band binary read (approximate)",
@@ -134,6 +160,19 @@ def main():
         f.write("- **flags**: `spec` = underdetermination the paper's own 3.3 charges to the model; `lang-forced` "
                 "= implementation language pinned to defeat stdlib-triviality (App. A); `recall-witness` = a "
                 "re-fetchable receipt above.\n\n")
+        f.write("## Classes checked (the full rejection taxonomy from the prior audits)\n\n")
+        f.write("Every rejection category from the [ProgramBench audit](https://github.com/kimjune01/program-bench-audit) "
+                "(witness classes + `class_checks`), the SWE-bench Pro determinacy audit, Terminal-Bench, and "
+                "tau-bench, swept against MirrorCode so the read is demonstrably complete rather than only the three "
+                "classes above. One-sided: *no witness surfaced* and *neutralized* are not certificates of absence.\n\n")
+        f.write("| category | from | verdict on MirrorCode | basis |\n|---|---|---|---|\n")
+        for (c,s,v,b) in CHECKS:
+            f.write(f"| {c} | {s} | **{v}** | {b} |\n")
+        f.write("\nThe only per-target rejection classes that fire are **recall** (2) and **scale** (7); "
+                "**self-capturing goldens** are a whole-benchmark property; everything else is absent in the public "
+                "set or neutralized by MirrorCode's non-determinism screen and its selection away from "
+                "reverse-engineering targets. That MirrorCode drains so many of the categories that sank "
+                "ProgramBench is itself the finding — and the credit ([finding 04](04_what_it_gets_right.md)).\n\n")
         f.write("*Data: `data/per_target.json`. Re-derive: `python3 scripts/build_per_target.py`. Recall receipts "
                 "re-fetchable from the public MirrorCode repo. Sources: paper Table 3, §3.1, §3.3, §4.3, Fig 3, "
                 "Fig 9, App. A, App. D.4, App. E.*\n")

@@ -351,6 +351,110 @@
    "note": "private target; excluded from Fig 9 screen"
   }
  ],
+ "classes_checked": [
+  {
+   "category": "recall (hash/cipher/codec/compressor)",
+   "source_audit": "ProgramBench",
+   "verdict": "PRESENT \u2014 2 (brotlid, mailauth)",
+   "basis": "graded output is a codec's / cryptographic signature's exact value; receipts above"
+  },
+  {
+   "category": "implementation-pinned render (PNG/PDF/framemd5 bytes)",
+   "source_audit": "ProgramBench",
+   "verdict": "no witness surfaced",
+   "basis": "no image/PDF/media/terminal-image target in the public set; the `*Renderer*.pkl` fixtures are pkl's text renderers, and such reverse-engineering targets were excluded by selection (\u00a72.3)"
+  },
+  {
+   "category": "undiscoverable entry point",
+   "source_audit": "ProgramBench",
+   "verdict": "no witness surfaced (public set)",
+   "basis": "visible tests reveal task scope; the one candidate (gron `argv[0]`\u2192ungron) MirrorCode itself dropped (E.1.2)"
+  },
+  {
+   "category": "self-capturing golden",
+   "source_audit": "ProgramBench",
+   "verdict": "WHOLE-BENCHMARK, by construction",
+   "basis": "every `data/gold_outputs/*` record is the reference binary's own I/O, with no independent contract check \u2014 the ProgramBench 'answer key written from the reference' pattern is structural here. Mitigated by I/O-only grading + the non-determinism screen (finding 00 gold clause), not eliminated"
+  },
+  {
+   "category": "scale / coverage",
+   "source_audit": "ProgramBench",
+   "verdict": "PRESENT \u2014 7 (the scale class)",
+   "basis": "the hard/unsolved targets; size and intricacy, not recall"
+  },
+  {
+   "category": "spec underdetermination (Airtight / Misdetermined / Plural)",
+   "source_audit": "SWE-bench Pro",
+   "verdict": "3 Plural (hexyl, sed, bib2json)",
+   "basis": "the paper's own \u00a73.3 failure cases; no Misdetermined or Airtight witness surfaced"
+  },
+  {
+   "category": "non-determinism: time / random / uuid",
+   "source_audit": "ProgramBench",
+   "verdict": "neutralized",
+   "basis": "screened and gold regenerated at runtime (Table 1); `uuidparse` parses, it does not generate"
+  },
+  {
+   "category": "float-formatting",
+   "source_audit": "ProgramBench",
+   "verdict": "neutralized by selection",
+   "basis": "exact-float-arithmetic targets were rejected (\u00a72.3); `numfmt` is fixed-decimal SI, `giac` is exact symbolic (`1/6`, `ln(3)`) \u2014 spot-checked"
+  },
+  {
+   "category": "locale / collation",
+   "source_audit": "ProgramBench",
+   "verdict": "neutralized",
+   "basis": "fixed sandbox locale; `numfmt`'s eight locales reproduce identically for solver and reference"
+  },
+  {
+   "category": "dir / hashmap enumeration order",
+   "source_audit": "ProgramBench",
+   "verdict": "no witness surfaced",
+   "basis": "output orders are defined \u2014 `gron` sorts keys, `jq` preserves input order (spot-checked golds)"
+  },
+  {
+   "category": "env / host / path leakage",
+   "source_audit": "ProgramBench",
+   "verdict": "neutralized",
+   "basis": "shared sandbox reproduces any $HOME/host-derived output identically"
+  },
+  {
+   "category": "parser-error-text (exact diagnostics)",
+   "source_audit": "ProgramBench",
+   "verdict": "benchable",
+   "basis": "exact error wording is discoverable from the visible tests and by probing the reference"
+  },
+  {
+   "category": "concurrency / interleaving",
+   "source_audit": "ProgramBench",
+   "verdict": "N/A",
+   "basis": "single-shot CLI tasks; no interleaving graded"
+  },
+  {
+   "category": "archive bit-exact (tar/zip layout)",
+   "source_audit": "ProgramBench",
+   "verdict": "no witness surfaced",
+   "basis": "no archive-producing target; ruff's `*.tar.gz` are lint INPUTS, not graded output"
+  },
+  {
+   "category": "frame (destructive completion scores 1)",
+   "source_audit": "Terminal-Bench",
+   "verdict": "avoided by design",
+   "basis": "the oracle is I/O only, not final environment state (finding 00 frame clause; finding 04)"
+  },
+  {
+   "category": "gold fails its own test",
+   "source_audit": "DeepSWE / SWE-bench Pro",
+   "verdict": "cannot arise",
+   "basis": "the reference binary IS the oracle, so goldens pass by construction \u2014 which is also the self-capturing-golden concern above"
+  },
+  {
+   "category": "decay / contamination",
+   "source_audit": "tau-bench",
+   "verdict": "PRESENT \u2014 17 screen-positive",
+   "basis": "finding 03"
+  }
+ ],
  "provenance": {
   "table3": "paper arXiv:2606.30182 Table 3 (bucket/lang/loc/command)",
   "recall": "read of data/gold_outputs/<t>.jsonl + mc/<t>/ fixtures; hand-adjudicated",
