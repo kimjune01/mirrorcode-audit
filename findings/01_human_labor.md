@@ -12,7 +12,7 @@ MirrorCode's marketing and paper carry the capability story on human-time estima
 - contrasted with: Opus 4.7 *"solved it in 14 hours, costing $251."*
 
 These estimates are unmeasured belief. But the targets are **real open-source programs**, so the
-human labor embodied in them is a public, falsifiable fact. We anchor it two ways, both external to
+human labor embodied in them is a matter of public record. We anchor it two ways, both external to
 us.
 
 This is not a peripheral nitpick. The human-time comparison *is* MirrorCode's headline product — the
@@ -23,15 +23,21 @@ that is the finding, not a footnote.
 
 ## Method
 
-**Anchor A — original creation.** For each target's upstream repo we pull the public git history
-(merged PRs, total commits, contributors, calendar span) via the GitHub API, then convert commits to
-developer-hours at a **published, neutral** rate: Kolassa, Riehle & Salim, *The Empirical Commit
-Frequency Distribution of Open Source Projects* (WikiSym+OpenSym 2013, arXiv:1408.4978), Table 1 —
-the **median interval between two consecutive commits of the same committer is 1.666 h**. (The paper's
-*mean* interval is 3.206 days, dominated by idle gaps; mean×commits would measure calendar time, not
-effort, so the median is the right active-work proxy.) `creation_hours ≈ commits × 1.666 h`. This is
-an order-of-magnitude anchor: it excludes non-committing work (design, review), so it under-counts
-total effort, and charges a full interval to rapid-fire commits, so it over-counts bursts.
+**Anchor A — the creation record (descriptive facts, then a heuristic).** For each target's upstream
+repo we pull the public git history via the GitHub API. The **hard, falsifiable facts** are the counts
+themselves: each program is hundreds-to-tens-of-thousands of commits, over years of calendar time, by
+many contributors (table below). That alone refutes "weekend program."
+
+Turning commits into hours needs a rate, and here we are explicit that this is a **heuristic, not a
+validated effort model.** We borrow the one published, neutral statistic available — Kolassa, Riehle &
+Salim, *The Empirical Commit Frequency Distribution of Open Source Projects* (WikiSym+OpenSym 2013,
+arXiv:1408.4978), Table 1: the **median interval between two consecutive commits of the same committer
+is 1.666 h** — and treat one commit as ≈1.666 h of work: `creation_hours ≈ commits × 1.666 h`. Two
+honest caveats, because this is the audit's own construction, not a source's: (i) 1.666 h is *elapsed
+time between commits*, not measured effort — it double-counts short breaks and misses design/review
+that leaves no commit; (ii) it is applied to the **current default branch**, not the pinned upstream
+version MirrorCode tested (§5 of the script notes this). So the person-hour figures are an
+order-of-magnitude illustration; the load-bearing claim is the descriptive record, not the constant.
 
 **Anchor B — reimplementation.** MirrorCode's task is not to *create* a program but to *reimplement*
 one from a working reference. Its own paper gives a human baseline (footnote 7): a skilled SWE **did
@@ -42,7 +48,8 @@ tens of weeks** — the correctly-scoped human number for what MirrorCode actual
 
 ## Anchor A: original creation embodied in the targets
 
-Whole-program targets, where the upstream repo's history is a fair anchor for the task:
+Whole-program targets, where the upstream repo's history is a fair anchor for the task (counts as of
+2026-07-17, live and re-derivable via `scripts/human_labor.py`; they drift slowly):
 
 | target | upstream repo | commits | span | contributors | creation (Kolassa) |
 |---|---|---|---|---|---|
@@ -55,7 +62,7 @@ Whole-program targets, where the upstream repo's history is a fair anchor for th
 | pkl | apple/pkl | 851 | 2.4y | 80 | ~35.5 dev-weeks |
 | wren_cli | wren-lang/wren-cli | 1,703 | 10.4y | 94 | ~70.9 dev-weeks |
 | brotlid | google/brotli | 1,538 | 12.8y | 131 | ~64.0 dev-weeks (decoder is a *part* of this) |
-| ruff | astral-sh/ruff | 16,216 | 3.9y | 927 | ~675 dev-weeks (linter is *most* of this) |
+| ruff | astral-sh/ruff | 16,217 | 3.9y | 927 | ~675 dev-weeks (linter is *most* of this) |
 
 **Median of the eight pure-`whole` targets ≈ 18.5 developer-weeks of original creation** (the bottom
 two rows, `brotlid` and `ruff`, are excluded from that median — MirrorCode tests only part of `brotli`
@@ -78,22 +85,22 @@ per-directory history, which we do not claim here.
 
 ## The finding: the two anchors bracket the belief, and differ by ~an order of magnitude
 
-Take a ~2,000-LoC *whole* program: `gron` (2.3k LoC, 223 commits ≈ **372 h** of original creation by
+Take a ~2,000-LoC *whole* program (LoC from MirrorCode Table 3): `gron` (2.3k LoC, 223 commits ≈ **372 h** of original creation by
 Anchor A) or `hexyl` (1.8k LoC, 490 commits ≈ **816 h**). MirrorCode's *own* reimplementation baseline
 for a task that size is **~48 h** — days (Anchor B). So **reimplementing from a working reference is
 roughly an order of magnitude cheaper than original creation** (the exact ratio, ~8–17× here, depends
 on the program; it is illustrative, not a constant). That gap is the whole story:
 
 - **Readers of the marketing picture creation** — "a human would take weeks/months" evokes building
-  the program. Anchor A confirms these programs *did* take tens of developer-weeks to create.
+  the program. the public record — years of calendar time, hundreds to thousands of commits, many contributors — shows these are substantial, multi-year programs.
 - **The benchmark measures reimplementation** — the far cheaper task. Anchor B (MirrorCode's own data)
   puts a ~2k-LoC reimplementation at ~1.2 weeks, not weeks-to-months.
-- **MirrorCode's estimates ("2–17 weeks", "months") sit between the two anchors and are unfalsifiable
+- **MirrorCode's estimates ("2–17 weeks", "months") sit between the two anchors and are untested
   belief.** The falsifiable numbers are Anchor A (creation, from public history) and Anchor B
   (reimplementation, from MirrorCode's own baseline). Neither supports the headline as framed: the
   large number is the wrong task, and the right-task number is a week.
-- **The "AI in 14 h" contrast is further confounded**: MirrorCode's own memorization screen flags
-  **17 of 25 targets** as showing training-data memorization (see finding 02), so the AI is partly
+- **The "AI in 14 h" contrast is further confounded**: MirrorCode's own memorization screen is
+  **screen-positive on 17 of 25 targets** (see finding 02), so the AI is partly
   recalling these specific, famous programs rather than reconstructing them.
 
 ## What this does and does not show
@@ -101,11 +108,12 @@ on the program; it is illustrative, not a constant). That gap is the whole story
 - It does **not** claim MirrorCode's tasks are easy. Reimplementation-to-byte-exact is hard, and their
   own human passed only 42% in 20 h.
 - It **does** show the human-labor claim is *checkable*, and that checking it separates two quantities
-  MirrorCode's framing blurs — the creation effort embodied in the target (large, falsifiable) and the
-  reimplementation effort the benchmark measures (small, falsifiable from their own baseline). The
+  MirrorCode's framing blurs — the creation record embodied in the target (large, on the public record) and the
+  reimplementation effort the benchmark measures (small, from MirrorCode's own baseline). The
   belief-estimate in between is the marketing.
-- Anchor A is order-of-magnitude (a single published constant across all repos); it is meant to fix
-  scale, not to price any one program to the hour.
+- Anchor A's person-hours are an order-of-magnitude illustration from a single heuristic rate; they
+  fix scale, not any one program's true cost. The descriptive record (commits, years, contributors) is
+  the falsifiable part, not the hours.
 
 *Data: `data/human_labor.json`. Re-derive: `python3 scripts/human_labor.py` (needs `gh`).*
-*Effort constant: Kolassa, Riehle & Salim 2013, [arXiv:1408.4978](https://arxiv.org/abs/1408.4978).*
+*Conversion rate (heuristic): Kolassa, Riehle & Salim 2013, [arXiv:1408.4978](https://arxiv.org/abs/1408.4978), median inter-commit interval — an elapsed-time statistic, not a validated effort model.*

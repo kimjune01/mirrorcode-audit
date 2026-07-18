@@ -22,13 +22,15 @@ artifacts.
 
 - **[01 — Human labor is falsifiable, and the framing equivocates](findings/01_human_labor.md).**
   MirrorCode's headline rests on *"we believe a human would take weeks / months."* The targets are
-  real open-source programs, so the human labor is a public fact. Anchored to a **published**
-  effort-per-commit constant (Kolassa et al. 2013, 1.666 h/commit), the whole-program targets embody
-  a median of **~18 developer-weeks of original creation** each (gotree ~35, wren_cli ~71, ruff ~675).
+  real open-source programs, so their development history is a matter of public record: hundreds to
+  tens of thousands of commits over years, by many contributors. As a rough heuristic (treating the
+  published median inter-commit interval, Kolassa et al. 2013 = 1.666 h, as work-per-commit — an
+  illustration, not a validated effort model), the whole-program targets come to a median of ~18
+  developer-weeks of original creation.
   But MirrorCode's *own* human baseline shows reimplementation-from-a-working-reference costs
   **~48 h (~1.2 weeks)** for a ~2,000-LoC task — ~an order of magnitude cheaper than original creation. The marketing
   equivocates between the two: readers picture creation, the benchmark measures the cheaper
-  reimplementation, and the "AI did it in 14 h" contrast rides on 17/25 targets showing memorization.
+  reimplementation, and the "AI did it in 14 h" contrast (a gotree run that passed 2000/2001 tests, not a strict 100%) rides on 17/25 targets that are screen-positive for memorization.
 
 - **[02 — Recall witnesses and verifiability](findings/02_recall_and_verifiability.md).**
   Two targets are recall-gated by the ProgramBench 5-class rule: **`brotlid`** (Brotli decompression;
@@ -43,8 +45,9 @@ artifacts.
   memorization screen (17/25 flagged) but never reported the memorization×solve-rate association and
   ships no raw data to compute it — its "not solely memorization" defense is two anecdotes, an unfilled
   2×2. From the published figures: contamination breadth **68%**; the uncontaminated reconstruction
-  signal is bounded to **≤8 targets (~5 small tools)**; `brotlid`/`mailauth` recall-gated by
-  construction. Reported as a bound, not a fabricated point estimate.
+  screen flags 17/25 targets, but only two (`brotlid`, `mailauth`) are recall-gated *by construction*;
+  the recall contribution to the score cannot be estimated from released data (the join isn't published).
+  Reported as what the evidence supports, not a fabricated point estimate.
 
 ## Reproduce
 
@@ -53,12 +56,13 @@ python3 scripts/human_labor.py     # needs `gh` authenticated; writes data/human
 ```
 
 Every number in `findings/01` re-derives from `data/human_labor.json`, which re-derives from the
-upstream repos' public git history via the GitHub API. The effort-per-commit constant is cited, not
-invented (see the script header).
+upstream repos' public git history via the GitHub API. The commit and branch counts are live GitHub facts; the
+commit→hours conversion is a cited but heuristic rate (an inter-commit interval, not measured effort).
 
 The upstream commit counts are live and drift slowly; the figures here are as of **2026-07-17** and
-re-derive (order-of-magnitude stable) on any rerun. Every claim traces to a cited paper section, a
-public repo file, or a re-runnable script — nothing rests on our say-so.
+re-derive (order-of-magnitude stable) on any rerun. Quantitative claims trace to a cited paper section/figure, a
+public repo file, or a re-runnable script; scope classifications and figure-reads are labeled as the
+audit's own judgment, not receipts.
 
 ## What's here
 

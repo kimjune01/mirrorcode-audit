@@ -56,16 +56,20 @@ claim is fair.
 
 **Not falsifiable as stated (the story).**
 
-- **Score receipts don't exist publicly.** The leaderboard numbers (56%) and the anecdotes
-  (*"14 hours, $251"* for gotree; *"$2,600, 19 days"* for the largest task) ship no per-trial
-  trajectory or log. Runs used METR's external Hawk orchestrator; outputs are not in the repo. You can
-  only "verify" by re-spending $100–3,000 per task on a stochastic rerun.
-- **Human-time claims are unmeasured belief** (finding 01): every human-effort figure is *"we
-  believe,"* and the one real human baseline (20 h → 42%) is left in a footnote, off the marketing
-  page. Making them falsifiable would mean publishing the per-trial trajectories and replacing "we
-  believe … weeks/months" with the measured baseline, scoped to creation vs reimplementation.
+- **The exact headline results are not independently recomputable.** Distinguish four things: the
+  *instrument* reruns (yes); the *historical stochastic runs* reproduce exactly (no — they're
+  sampled); some *sample solutions* are published (`data/correct_code/` holds a few generated
+  programs); the *complete per-run outcomes, trajectories, model/API settings, and Hawk run manifests*
+  behind the leaderboard 56% and the anecdotes (*"14 h, $251"* for the near-perfect gotree run;
+  *"$2,600, 19 days"*) are **not** published. So a reader cannot recompute the aggregate score without
+  re-spending $100–3,000 per task on a fresh stochastic run — a real reproducibility gap, though not a
+  total absence of artifacts.
+- **Human-time claims are unmeasured** (finding 01): every human-effort figure is *"we believe,"* the
+  estimators were benchmark contributors (not blinded), no estimation method is published, the four
+  gotree estimates span ~7×, and the one real baseline (20 h → 42%, incomplete) is in a footnote, off
+  the marketing page. They are testable with a blinded human baseline — just untested.
 - **The title claim overreaches.** *"AI can rebuild entire programs from behavior alone"* is
-  half-confounded: 17/25 targets are memorized, so "from behavior alone" is not cleanly separable from
+  half-confounded: 17/25 targets are screen-positive for memorization, so "from behavior alone" is not cleanly separable from
   recall, and the paper concedes the produced code is piecemeal and would not merge.
 
 The conflict of interest is at least disclosed: the site states MirrorCode is *"co-developed with

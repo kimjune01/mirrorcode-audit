@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""Falsifiable human-labor anchor for MirrorCode's target programs.
+"""Human-labor context for MirrorCode's target programs, from public git history.
 
 MirrorCode (arXiv:2606.30182) frames its headline around unmeasured belief:
 "We believe a human engineer without AI would take months" / "2-17 weeks".
-But its targets are REAL open-source programs, so the human labor that built
-them is a public, falsifiable fact. This script reads each target's upstream
-git history (via the GitHub API) and reports:
+Its targets are REAL open-source programs, so their DEVELOPMENT RECORD is public.
+This script reads each target's upstream git history (via the GitHub API) and
+reports the hard, falsifiable facts:
 
   - merged PR count, total commits, unique contributors
   - calendar span (first -> last commit)
-  - a labor floor at a CONSERVATIVE ceiling of 10 merged-PRs/day/human:
-        person_days_floor = merged_PRs / 10
 
-10 PRs/day is a generous upper bound on sustained human throughput, so
-merged_PRs/10 is a LOWER bound on the person-days that produced the repo.
-It is an anchor on the WHOLE upstream project; MirrorCode grades only a scoped
-subset and only I/O behaviour, so this over-counts in-scope labor and
-under-counts nothing a reimplementer can skip. Reported as a floor, per the
-audit rule "report floors, never rates."
+and one HEURISTIC (not a validated effort model): person-hours ~= commits * H,
+with H = 1.666 h, the published MEDIAN INTER-COMMIT INTERVAL (Kolassa, Riehle &
+Salim 2013, arXiv:1408.4978, Table 1). Caveats, stated plainly because this is
+the audit's own construction: H is ELAPSED time between commits, not measured
+effort (double-counts short breaks, misses non-committing design/review); and it
+is computed on the CURRENT DEFAULT BRANCH, not the pinned upstream version
+MirrorCode tested. So the hour/week figures are an order-of-magnitude
+illustration; the load-bearing output is the descriptive record, not the hours.
 
 Re-runnable: needs `gh` authenticated. `python3 scripts/human_labor.py`.
 """
