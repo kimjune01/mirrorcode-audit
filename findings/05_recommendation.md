@@ -44,6 +44,25 @@ protocol Q, the estimated size at which whole-task success drops below 50% is S,
 deterministic point and not a scaling law a convenience sample of 25 confounded programs could
 establish.
 
+## Showing the profile's uncertainty (against false precision)
+
+A prettier surface risks a *false sense of accuracy* — a crisp Pareto line implies the frontier is known
+exactly, when it is a derived object over noisy points. Make the uncertainty impossible to miss:
+
+- **Plot points with 2-D error crosses and draw no frontier line:** a Wilson interval vertically
+  (whole-task success), a bootstrap interval horizontally (time). The frontier then reads as a *region*.
+- **If a frontier is drawn, bootstrap it:** resample tasks (the independent unit), recompute the Pareto
+  frontier per resample, and overplot the ensemble as faint "spaghetti" or shade its envelope. The
+  bundle's width *is* the uncertainty — a fan means "not determined here." This propagates uncertainty
+  through the frontier-finding step, which per-point bars alone do not.
+- **Facet by discrete size bucket, not a continuous axis,** so no scaling law is implied; each panel
+  carries its band.
+- **Encode n per cell** (marker size or a printed count) so sparse cells look sparse.
+- **Optionally, shade each point by its bootstrap probability of lying on the frontier** — "probably-
+  frontier" dark, "maybe" faint — which shows frontier-*membership* uncertainty a plain band hides.
+
+The rule: a frontier you can bootstrap into a wide fan is one you should not report as a line.
+
 ## "Same conditions" needs a written protocol
 
 "Human vs AI on the same task" is only meaningful under a predeclared, construct-equivalent protocol,
