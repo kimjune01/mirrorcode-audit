@@ -92,7 +92,8 @@ roughly an order of magnitude cheaper than original creation** (the exact ratio,
 on the program; it is illustrative, not a constant). That gap is the whole story:
 
 - **Readers of the marketing picture creation** — "a human would take weeks/months" evokes building
-  the program. the public record — years of calendar time, hundreds to thousands of commits, many contributors — shows these are substantial, multi-year programs.
+  the program. The public record — years of calendar time, hundreds to thousands of commits, 7 to 927
+  contributors — shows these are multi-year programs, not weekend builds.
 - **The benchmark measures reimplementation** — the far cheaper task. Anchor B (MirrorCode's own data)
   puts a ~2k-LoC reimplementation at ~1.2 weeks, not weeks-to-months.
 - **MirrorCode's estimates ("2–17 weeks", "months") sit between the two anchors and are untested
