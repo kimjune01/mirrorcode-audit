@@ -63,7 +63,7 @@ MirrorCode, so the coverage is comprehensive rather than only the two deep-dives
 | clause | check | verdict on MirrorCode |
 |---|---|---|
 | **spec** | is the graded value pinned by the materials the solver gets? | **partial** — visible tests pin scope well, but the paper's own failure cases (`bib2json` `useprefix` default, `sed --posix`) are underdetermination charged to the model |
-| **oracle** | classify each exact-value assertion by how a source-blind solver gets it | **breaks on 2+ targets** — `brotlid`, `mailauth` are recall-only ([finding 02](02_recall_and_verifiability.md)) |
+| **oracle** | classify each exact-value assertion by how a source-blind solver gets it | **breaks on exactly 2 of 25** — `brotlid`, `mailauth` recall by construction; a full per-target read ([finding 06](06_per_target.md)) confirms the recall surface is otherwise drained |
 | **frame** | does the grader guard what the task never named? | **strong** — I/O-only oracle + enforced execute-only reference; the Gemini binary-wrap cheat is defeated structurally (§D) |
 | **gold** | does the reference pass its own tests? | trivially yes — the reference *is* the oracle (self-capturing by construction); apt for an I/O bench, but see oracle |
 | **score** | recompute the headline; is it comparing like with like? | **caveat** — Gemini run Python-only vs Opus all-6-languages; L targets single-language; disclosed in text, flattened in the 3-bar figure |

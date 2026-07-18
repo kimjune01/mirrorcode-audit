@@ -65,9 +65,16 @@ artifacts.
   **profile**, with cost/tokens/parallelism logged too — not a three-number slogan. We'd have estimated
   it from their run records; they didn't publish them, so we ask them to run it.
 
+- **[06 — Per-target audit (all 25)](findings/06_per_target.md).** The ProgramBench-style read: every
+  target given a verdict against the public repo. **2/25 recall by construction** (`brotlid`,
+  `mailauth`, with receipts) vs ProgramBench's 21/201 — MirrorCode's selection genuinely drained the
+  recall surface (no hash/image/media targets survive); **7/25 scale** (the hard, unsolved ones — size,
+  not recall); **13 clean**; 3 private unread. Reconciles findings 02–04.
+
 ## Reproduce
 
 ```bash
+python3 scripts/build_per_target.py   # -> findings/06_per_target.md, data/per_target.json
 python3 scripts/human_labor.py     # needs `gh` authenticated; writes data/human_labor.json
 ```
 
