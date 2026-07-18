@@ -56,11 +56,13 @@ artifacts.
   independent convergence on the ProgramBench-audit fixes; enough budget to measure the real frontier;
   genuine headroom; and a paper body candid about its own limits. Credited as squarely as the criticism.
 
-- **[05 — A metric worth reporting: speed × accuracy](findings/05_recommendation.md).** The
-  constructive fix. The marketing question is two numbers — **how many × faster than a human (10× /
-  100× / 1000×), and at what accuracy** — reported as a pair, each with a small-sample CI (Wilson for
-  the accuracy proportion), or a single asterisked point estimate on a tight budget. We would have
-  computed it from their run records; they didn't publish them, so we ask them to run it.
+- **[05 — A metric worth reporting: size × speed × accuracy](findings/05_recommendation.md).** The
+  constructive fix. The marketing question is three numbers — **how large a program (LoC), how many ×
+  faster than a human (10× / 100× / 1000×), and at what accuracy** — with speed and accuracy reported
+  *as a function of size*, not collapsed (the title is a size claim). Wall-clock, not dollars (compute
+  is negligible against a SWE's time). Small-sample-estimable (Wilson CI for accuracy), degrading to a
+  single asterisked n=1 point on a tight budget and upgrading to a fitted accuracy(size) curve with more
+  samples. We'd have computed it from their run records; they didn't publish them, so we ask them to run it.
 
 ## Reproduce
 

@@ -78,5 +78,5 @@ MirrorCode, so the coverage is comprehensive rather than only the two deep-dives
   five-class rule.
 - Every claim traces to a cited paper section, a public repo file, or a re-runnable script.
 
-**The constructive fix** — the metric that would answer the marketing question honestly (wall-clock
-compression × accuracy, small-sample-estimable) — is [finding 05](05_recommendation.md).
+**The constructive fix** — the metric that would answer the marketing question honestly (size ×
+wall-clock-compression × accuracy, reported per size, small-sample-estimable) — is [finding 05](05_recommendation.md).
